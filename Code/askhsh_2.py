@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from min_or_max import find_min_or_max
 
-# Contraint functions
+## Contraint functions
 def f1(x): 
     return 500 - x
 
@@ -17,11 +18,6 @@ def f4(x):
 def f5(x):
     return np.full_like(x, 250)
 
-
-# Cptimization functions
-def fz1(x1, x2):
-    return 3 * x1 + 4 * x2
-
 # Define the constraints
 d = np.linspace(0, 500, 300)
 x1, x2 = np.meshgrid(d, d)
@@ -36,8 +32,11 @@ constraint5 = x2 <= 250
 constraint6 = x1 >= 0
 constraint7 = x2 >= 0
 
-# Find the intersection points of the constraints
+## Cptimization functions
+def fz1(x1, x2):
+    return 3 * x1 + 4 * x2
 
+## Find the intersection points of the constraints
 # constraint1 & constraint3
 a1 = np.array([[1, 1], [1, -3]])
 b1 = np.array([500, 0])
@@ -63,19 +62,12 @@ a5 = np.array([[.6, -.4], [0, 1]])
 b5 = np.array([0, 250])
 intersection5 = np.linalg.solve(a5, b5)
 
+## Find the maximum value of the function
+maxima, point = find_min_or_max(fz1, 
+                                [intersection1, intersection2, intersection3, intersection4, intersection5], 
+                                "max")
 
-# Find the maximum value of the function
-intersections = np.array([intersection1, intersection2, intersection3, intersection4, intersection5])
-print(f"Κρίσιμα σημέια:\n {intersections}")
-index = 0
-maxima = -np.inf
-for i, intersection in enumerate(intersections):
-    z = fz1(intersection[0], intersection[1])
-    if z > maxima:
-        maxima = z
-        index = i
-
-print(f"The maximum value of the function is: {maxima} at point {intersections[index]} ")
+print(f"The maximum value of the function is: {maxima} at point {point} ")
 
 ## Plots
 # Feasible region

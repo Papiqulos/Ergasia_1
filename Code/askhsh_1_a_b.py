@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from min_or_max import find_min_or_max
 
 
 # Contraint functions
@@ -51,28 +52,18 @@ intersection3 = np.linalg.solve(a3, b3)
 intersection4 = [20, 0]
 
 # Erwthma a
-intersections = np.array([intersection1, intersection2, intersection3, intersection4])
-print(f"Κρίσιμα σημέια:\n {intersections}")
-index = 0
-minima = np.inf
-for i, intersection in enumerate(intersections):
-    z = fz1(intersection[0], intersection[1])
-    if z < minima:
-        minima = z
-        index = i
+minima, point = find_min_or_max(fz1, 
+                                [intersection1, intersection2, intersection3, intersection4], 
+                                "min")
 
-print(f"The minimum value of the function is: {minima} at point {intersections[index]} ")
+print(f"The minimum value of the function is: {minima} at point {point} ")
 
 # Erwthma b
-index = 0
-minima = np.inf
-for i, intersection in enumerate(intersections):
-    z = fz2(intersection[0], intersection[1])
-    if z < minima:
-        minima = z
-        index = i
+minima, point = find_min_or_max(fz2, 
+                                [intersection1, intersection2, intersection3, intersection4], 
+                                "min")
 
-print(f"The minimum value of the function is: {minima} at point {intersections[index]} ")
+print(f"The minimum value of the function is: {minima} at point {point} ")
 
 ## Plots
 # Feasible region
