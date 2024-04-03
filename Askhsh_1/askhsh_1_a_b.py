@@ -36,14 +36,17 @@ constraint5 = x1 >= 0
 constraint6 = x2 >= 0
 
 # Find the intersection points of the constraints
-idx = np.argwhere(np.diff(np.sign(f1(x) - f2(x)))).flatten()
-intersection1 = [x[idx][0], f1(x)[idx][0]]
+a1 = np.array([[1, 1], [-10, 1]])
+b1 = np.array([10, 10])
+intersection1 = np.linalg.solve(a1, b1)
 
-idx = np.argwhere(np.diff(np.sign(f2(x) - f3(x))).flatten())
-intersection2 = [x[idx][0], f2(x)[idx][0]]
+a2 = np.array([[-10, 1], [-4, 1]])
+b2 = np.array([10, 20])
+intersection2 = np.linalg.solve(a2, b2)
 
-idx = np.argwhere(np.diff(np.sign(f1(x) - f4(x)))).flatten()
-intersection3 = [x[idx][0], f1(x)[idx][0]]
+a3 = np.array([[1, 1], [1, 4]])
+b3 = np.array([10, 20])
+intersection3 = np.linalg.solve(a3, b3)
 
 intersection4 = [20, 0]
 
