@@ -52,18 +52,20 @@ intersection3 = np.linalg.solve(a3, b3)
 intersection4 = [20, 0]
 
 # Erwthma a
+print(f"----------------------Ερώτημα α----------------------")
 minima, point = find_min_or_max(fz1, 
-                                [intersection1, intersection2, intersection3, intersection4], 
+                                 np.array([intersection1, intersection2, intersection3, intersection4]), 
                                 "min")
 
-print(f"The minimum value of the function is: {minima} at point {point} ")
+print(f"The minimum value of the function is: {minima} at point {point}")
 
 # Erwthma b
+print(f"----------------------Ερώτημα β----------------------")
 minima, point = find_min_or_max(fz2, 
-                                [intersection1, intersection2, intersection3, intersection4], 
+                                np.array([intersection1, intersection2, intersection3, intersection4]), 
                                 "min")
 
-print(f"The minimum value of the function is: {minima} at point {point} ")
+print(f"The minimum value of the function is: {minima} at point {point}")
 
 ## Plots
 # Feasible region
