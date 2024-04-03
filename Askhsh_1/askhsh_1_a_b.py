@@ -51,7 +51,7 @@ intersection4 = [20, 0]
 intersections = [intersection1, intersection2, intersection3, intersection4]
 print(intersections)
 index = 0
-minima = 0
+minima = np.inf
 for i, intersection in enumerate(intersections):
     z = fz1(intersection[0], intersection[1])
     if z < minima:
@@ -59,11 +59,10 @@ for i, intersection in enumerate(intersections):
         index = i
 
 print(f"The minimum value of the function is: {minima} at point {intersections[index]} ")
-        
 
 # Erwthma b
 index = 0
-minima = 0
+minima = np.inf
 for i, intersection in enumerate(intersections):
     z = fz2(intersection[0], intersection[1])
     if z < minima:
@@ -83,7 +82,7 @@ plt.plot(x, f2(x), label='-10x1 + x2 <= 10')
 plt.plot(x, f3(x), label='-4x1 + x2 <= 20')
 plt.plot(x, f4(x), label='x1 + 4x2 >= 20')
 
-# Plot the intersection points
+# Ιntersection points
 plt.plot(intersection1[0], intersection1[1], 'ro')
 plt.plot(intersection2[0], intersection2[1], 'ro')
 plt.plot(intersection3[0], intersection3[1], 'ro')

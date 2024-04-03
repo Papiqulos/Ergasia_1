@@ -5,4 +5,3 @@ import matplotlib.pyplot as plt
 
 
 
-# Contraint functions
