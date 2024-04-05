@@ -17,78 +17,90 @@ def f4(x): # >=
     return 5 - x / 4
 
 # Cptimization functions
+# Erwthma a
 def fz1(x1, x2):
     return 2 * x1 - x2
 
+# Erwthma b
 def fz2(x1, x2):
     return 11 * x1 - x2
 
-# Define the constraints
-d = np.linspace(0, 35, 300)
-x1, x2 = np.meshgrid(d, d)
 
-x = np.linspace(-100, 100, 3000)
+def main():
+    # Define the constraints
+    d = np.linspace(0, 35, 300)
+    x1, x2 = np.meshgrid(d, d)
 
-constraint1 = x1 + x2 >= 10
-constraint2 = -10 * x1 + x2 <= 10
-constraint3 = -4 * x1 + x2 <= 20
-constraint4 = x1 + 4 * x2 >= 20
-constraint5 = x1 >= 0
-constraint6 = x2 >= 0
+    x = np.linspace(-100, 100, 3000)
 
-# Find the intersection points of the constraints
-a1 = np.array([[1, 1], [-10, 1]])
-b1 = np.array([10, 10])
-intersection1 = np.linalg.solve(a1, b1)
+    constraint1 = x1 + x2 >= 10
+    constraint2 = -10 * x1 + x2 <= 10
+    constraint3 = -4 * x1 + x2 <= 20
+    constraint4 = x1 + 4 * x2 >= 20
+    constraint5 = x1 >= 0
+    constraint6 = x2 >= 0
+    feasible_region = constraint1 & constraint2 & constraint3 & constraint4 & constraint5 & constraint6
 
-a2 = np.array([[-10, 1], [-4, 1]])
-b2 = np.array([10, 20])
-intersection2 = np.linalg.solve(a2, b2)
+    # Find the intersection points of the constraints
+    a1 = np.array([[1, 1], [-10, 1]])
+    b1 = np.array([10, 10])
+    intersection1 = np.linalg.solve(a1, b1)
 
-a3 = np.array([[1, 1], [1, 4]])
-b3 = np.array([10, 20])
-intersection3 = np.linalg.solve(a3, b3)
+    a2 = np.array([[-10, 1], [-4, 1]])
+    b2 = np.array([10, 20])
+    intersection2 = np.linalg.solve(a2, b2)
 
-intersection4 = [20, 0]
+    a3 = np.array([[1, 1], [1, 4]])
+    b3 = np.array([10, 20])
+    intersection3 = np.linalg.solve(a3, b3)
 
-# Erwthma a
-print(f"----------------------Ερώτημα α----------------------")
-minima, point = find_min_or_max(fz1, 
-                                 np.array([intersection1, intersection2, intersection3, intersection4]), 
-                                "min")
+    intersection4 = [20, 0]
 
-print(f"The minimum value of the function is: {minima} at point {point}")
+    intersections = np.array([intersection1, intersection2, intersection3, intersection4])
 
-# Erwthma b
-print(f"----------------------Ερώτημα β----------------------")
-minima, point = find_min_or_max(fz2, 
-                                np.array([intersection1, intersection2, intersection3, intersection4]), 
-                                "min")
+    ## Finding the minimum value of the optimization functions
+    # Erwthma a
+    print(f"----------------------Ερώτημα α----------------------")
+    minima, point = find_min_or_max(fz1, 
+                                    intersections, 
+                                    "min")
 
-print(f"The minimum value of the function is: {minima} at point {point}")
+    print(f"The minimum value of the function is: {minima} at point {point}")
 
-## Plots
-# Feasible region
-plt.imshow( ((constraint1 & constraint2 & constraint3 & constraint4 & constraint5 & constraint6) ).astype(int), 
-                extent=(x1.min(), x1.max(), x2.min(), x2.max()), origin="lower", cmap="Greys", alpha = 0.3)
+    # Erwthma b
+    print(f"----------------------Ερώτημα β----------------------")
+    minima, point = find_min_or_max(fz2, 
+                                    intersections, 
+                                    "min")
 
-# Constraint plots
-plt.plot(x, f1(x), label='x1 + x2 >= 10')
-plt.plot(x, f2(x), label='-10x1 + x2 <= 10')
-plt.plot(x, f3(x), label='-4x1 + x2 <= 20')
-plt.plot(x, f4(x), label='x1 + 4x2 >= 20')
+    print(f"The minimum value of the function is: {minima} at point {point}")
 
-# Ιntersection points
-plt.plot(intersection1[0], intersection1[1], 'ro')
-plt.plot(intersection2[0], intersection2[1], 'ro')
-plt.plot(intersection3[0], intersection3[1], 'ro')
-plt.plot(intersection4[0], intersection4[1], 'ro')
+    ## Plots
+    # Feasible region
+    plt.imshow( (feasible_region).astype(int), 
+                    extent=(x1.min(), x1.max(), x2.min(), x2.max()), origin="lower", cmap="Greys", alpha = 0.3)
 
-# Sauces
-plt.xlim(-1, 35)
-plt.ylim(-1, 35)
-plt.legend()
-plt.show()
+    # Constraint plots
+    plt.plot(x, f1(x), label='x1 + x2 >= 10')
+    plt.plot(x, f2(x), label='-10x1 + x2 <= 10')
+    plt.plot(x, f3(x), label='-4x1 + x2 <= 20')
+    plt.plot(x, f4(x), label='x1 + 4x2 >= 20')
+
+    # Ιntersection points
+    for intersection in intersections:
+        plt.plot(*intersection, 'ro')
+
+    # Sauces
+    plt.xlim(-1, 35)
+    plt.ylim(-1, 35)
+    plt.legend()
+    plt.show()
+
+if __name__ == "__main__":
+    main()
+
+
+
 
 
 
