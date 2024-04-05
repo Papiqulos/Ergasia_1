@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from min_or_max import find_min_or_max
+from modules import find_min_or_max
 
 
 # Contraint functions
@@ -41,19 +41,23 @@ def main():
     constraint6 = x2 >= 0
     feasible_region = constraint1 & constraint2 & constraint3 & constraint4 & constraint5 & constraint6
 
-    # Find the intersection points of the constraints
+    ## Intersections
+    # constraint1 & constraint2
     a1 = np.array([[1, 1], [-10, 1]])
     b1 = np.array([10, 10])
     intersection1 = np.linalg.solve(a1, b1)
 
+    # constraint2 & constraint3
     a2 = np.array([[-10, 1], [-4, 1]])
     b2 = np.array([10, 20])
     intersection2 = np.linalg.solve(a2, b2)
 
+    # constraint1 & constraint4
     a3 = np.array([[1, 1], [1, 4]])
     b3 = np.array([10, 20])
     intersection3 = np.linalg.solve(a3, b3)
 
+    # constraint4 & constraint5
     intersection4 = [20, 0]
 
     intersections = np.array([intersection1, intersection2, intersection3, intersection4])
@@ -93,6 +97,8 @@ def main():
     # Sauces
     plt.xlim(-1, 35)
     plt.ylim(-1, 35)
+    plt.xlabel("x1")
+    plt.ylabel("x2")
     plt.legend()
     plt.show()
 
