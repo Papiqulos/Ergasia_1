@@ -35,4 +35,7 @@ def find_min_or_max(fz, intersections:np.array, type:str)->tuple:
                 index = i
         print(f"Κορυφές:\n {intersections}")
         return minima, intersections[index]
+
+def remove_nan(solutions:np.array)->np.array:
+    return np.array([s for s in solutions if not np.isnan(s).any()])
     
