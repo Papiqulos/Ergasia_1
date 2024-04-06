@@ -5,7 +5,7 @@ def find_min_or_max(fz, intersections:np.array, type:str)->tuple:
     Finds the minimum or maximum value of a function at the given intersections.
 
     Args:
-        fz1: The function to be optimized.
+        fz: The function to be optimized.
         intersections: The intersections of the constraints.
         type: The type of the optimization. It can be either "min" or "max".
     Returns:
@@ -36,6 +36,14 @@ def find_min_or_max(fz, intersections:np.array, type:str)->tuple:
         print(f"Κορυφές:\n {intersections}")
         return minima, intersections[index]
 
-def remove_nan(solutions:np.array)->np.array:
-    return np.array([s for s in solutions if not np.isnan(s).any()])
+def remove_nan(arr:np.array)->np.array:
+    """
+    Removes the NaN values from an array.
+
+    Args:
+        arr: The array to be filtered.
+    Returns:
+        The filtered array.
+    """
+    return np.array([element for element in arr if not np.isnan(element).any()])
     
