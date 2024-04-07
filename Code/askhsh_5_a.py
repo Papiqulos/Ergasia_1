@@ -1,7 +1,5 @@
 import numpy as np
-from itertools import combinations
-from modules import remove_nan
-import scipy
+from modules import nCr_combs, nice_print_5a
 
 # Objective function
 def fz(x1, x2, x3, x4):
@@ -28,10 +26,6 @@ def c6(x1, x2, x3, x4):
 
 def c7(x1, x2, x3, x4):
     return 0*x1 + 0*x2 + 0*x3 + x4 >= 0
-
-# Combinations
-def nCr_combs(arr, r):
-    return list(combinations(arr, r))
 
 
 def main():
@@ -64,29 +58,25 @@ def main():
 
     # Solving all possible combinations of the constraints
     combs = nCr_combs(A, len(c))
-    indices = np.linspace(0, 6, 7)
+    indices = np.linspace(0, 6, 7, dtype=int)
     indices = nCr_combs(indices, 4)
     solutions = []
     for i in range(len(combs)):
         augmented = np.array(combs[i])
         a = augmented[:, :-1]
         b_ = augmented[:, -1]
-        # print(a)
-        # print("----")
-        # print(b_)
         try:
             solutions.append((np.round(np.linalg.solve(a, b_), 2), indices[i])) 
         except np.linalg.LinAlgError:
             continue
-    print(f"Vertices of polytope:{len(solutions)}")    
-    print("hyperplane  \t        x1\tx2\tx3\tx4")   
-    for element in solutions:
-        print(f"{element[1]} \t{element[0][0]}\t{element[0][1]}\t{element[0][2]}\t{element[0][3]}")
-
+    
+    # Printing the solutions and the hyperplanes they belong to
     print("-------------------------------------------")
+    print(f"Number of vertices of polytope: {len(solutions)}")
+    nice_print_5a(solutions)
 
-    # Filtering the solutions that satisfy the constraints
-    filtered_solutions = []
+    ## Finding the feasible solutions and the hyperplanes they belong to
+    feasible_solutions = []
     for i in range(len(solutions)):
         if  c1(*solutions[i][0]) \
         and c2(*solutions[i][0]) \
@@ -95,23 +85,26 @@ def main():
         and c5(*solutions[i][0]) \
         and c6(*solutions[i][0]) \
         and c7(*solutions[i][0]):
-            filtered_solutions.append(solutions[i])
+            feasible_solutions.append(solutions[i])
         else:
             continue
-    print(f"Vertices in feasible region:{len(filtered_solutions)}")
-    print("hyperplane  \t        x1\tx2\tx3\tx4")
-    for element in solutions:
-        print(f"{element[1]} \t{element[0][0]}\t{element[0][1]}\t{element[0][2]}\t{element[0][3]}")
+    
+    ## Printing the solutions that satisfy the constraints and the hyperplanes they belong to
     print("-------------------------------------------")
+    print(f"Number of vertices in feasible region: {len(feasible_solutions)}")
+    nice_print_5a(feasible_solutions)
+    
+    ## Finding the degenerate vertices and the hyperplanes they belong to
+    sol_only = np.array([element[0] for element in feasible_solutions])
+    degenerate_vertices = np.array([x for x in sol_only if np.count_nonzero(np.all(sol_only == x, axis=1)) > 1])
 
-    # Finding the degenerate vertices
-    arr = np.array([element[0] for element in filtered_solutions])
-    degenerate_vertices = np.array([x for x in arr if np.count_nonzero(np.all(arr == x, axis=1)) > 1])
-    print("Degenerate Vertices:")
-    print("hyperplane  \t        x1\tx2\tx3\tx4")
+    # Printing the degenerate vertices and the hyperplanes they belong to
+    print("-------------------------------------------")
+    print(f"Number of degenerate vertices: {len(degenerate_vertices)}")
+    print("hyperplanes  \t        x1\tx2\tx3\tx4")
     for i, vertex in enumerate(degenerate_vertices):
-        indices = np.where(np.all(arr == vertex, axis=1))[0]
-        print(f"{filtered_solutions[indices[i]][1]} \t{degenerate_vertices[i][0]}\t{degenerate_vertices[i][1]}\t{degenerate_vertices[i][2]}\t{degenerate_vertices[i][3]}")
+        indices = np.where(np.all(sol_only == vertex, axis=1))[0]
+        print(f"{feasible_solutions[indices[i]][1]} \t\t{degenerate_vertices[i][0]}\t{degenerate_vertices[i][1]}\t{degenerate_vertices[i][2]}\t{degenerate_vertices[i][3]}")
     
 if __name__ == "__main__":
     main()
