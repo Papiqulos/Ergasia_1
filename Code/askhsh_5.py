@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from modules import nCr_combs, contains_negative, contains_zero, nice_print_5a, nice_print_5b
+from modules import nCr_combs, contains_negative, contains_zero, nice_print_a, nice_print_b
 
 # Objective function
 def fz(x1, x2, x3, x4):
@@ -27,53 +27,6 @@ def c6(x1, x2, x3, x4):
 
 def c7(x1, x2, x3, x4):
     return 0*x1 + 0*x2 + 0*x3 + x4 >= 0
-
-def nice_print1(vertices, feasible_vertices, degenerate_vertices, vert_only):
-    # # Printing the solutions and the hyperplanes they belong to
-    # print("-------------------------------------------")
-    # print(f"Number of vertices of polytope: {len(vertices)}")
-    # nice_print_5a(vertices)
-
-    # Printing the solutions that satisfy the constraints and the hyperplanes they belong to
-    print("-------------------------------------------")
-    print(f"Number of vertices in feasible region: {len(feasible_vertices)}")
-    nice_print_5a(feasible_vertices)
-
-    # # Printing the degenerate vertices and the hyperplanes they belong to
-    # print("-------------------------------------------")
-    # print(f"Number of degenerate vertices: {len(degenerate_vertices)}")
-    # print("hyperplanes  \t        x1\tx2\tx3\tx4")
-    # for i, vertex in enumerate(degenerate_vertices):
-    #     indices = np.where(np.all(vert_only == vertex, axis=1))[0]
-    #     print(f"{feasible_vertices[indices[i]][1]} \t\t{degenerate_vertices[i][0]}\t{degenerate_vertices[i][1]}\t{degenerate_vertices[i][2]}\t{degenerate_vertices[i][3]}")
-
-def nice_print2(general_solutions, feasible_solutions, degenerate_solutions, z, maxima):
-    # # Printing the general solutions and their according basic variables
-    # print("------------------------------------------")
-    # print(f"Number of general solutions: {len(general_solutions)}")
-    # print(f"basic variables\t\t     general solution")
-    # nice_print_5b(general_solutions)
-
-    # Printing the feasible solutions and their according basic variables  
-    print("------------------------------------------")
-    print(f"Number of feasible solutions: {len(feasible_solutions)}")
-    print(f"basic variables\t\t     feasible solution")
-    nice_print_5b(feasible_solutions)
-
-    # # Printing the degenerate solutions and their according basic variables 
-    # print("------------------------------------------")
-    # print(f"Number of degenerate solutions: {len(degenerate_solutions)}")
-    # print(f"basic variables\t\t     degenerate solution")
-    # nice_print_5b(degenerate_solutions)
-
-    # # Printing the value of the objective function for every feasible solution and their according basic variables
-    # print("------------------------------------------")
-    # print(f"basic variables\t\t     value of the objective function")
-    # for i in z:
-    #     print(f"{i[1]}\t\t     {i[0]:.2f}")
-        
-    # print("------------------------------------------")
-    # print(f"Optimal solution: {maxima:.2f}")
 
 def erwthma_a():
     
@@ -116,8 +69,6 @@ def erwthma_a():
         except np.linalg.LinAlgError:
             continue
     
-    
-
     ## Finding the feasible solutions and the hyperplanes they belong to
     feasible_vertices = []
     for i in range(len(vertices)):
@@ -132,13 +83,10 @@ def erwthma_a():
         else:
             continue
     
-    
-    
     ## Finding the degenerate vertices and the hyperplanes they belong to
     vert_only = np.array([element[0] for element in feasible_vertices])
     degenerate_vertices = np.array([x for x in vert_only if np.count_nonzero(np.all(vert_only == x, axis=1)) > 1])
 
-    
     
     return vertices, feasible_vertices, degenerate_vertices, vert_only
 
@@ -231,10 +179,10 @@ def erwthma_b():
 if __name__ == "__main__":
 
     vertices, feasible_vertices, degenerate_vertices, vert_only = erwthma_a()
-    nice_print1(vertices, feasible_vertices, degenerate_vertices, vert_only)
+    nice_print_a(vertices, feasible_vertices, degenerate_vertices, vert_only)
 
     general_solutions, feasible_solutions, degenerate_solutions, z, maxima = erwthma_b()
-    nice_print2(general_solutions, feasible_solutions, degenerate_solutions, z, maxima)
+    nice_print_b(general_solutions, feasible_solutions, degenerate_solutions, z, maxima)
 
 
 

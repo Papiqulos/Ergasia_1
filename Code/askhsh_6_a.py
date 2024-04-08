@@ -4,8 +4,16 @@ from modules import present_optimal_solution, present_tableau, contains_positive
 warnings.filterwarnings("ignore", category=RuntimeWarning) 
 
 
-def simplex_method_optimal(c, A, b):
-
+def simplex_method_optimal(c:np.array, A:np.array, b:np.array)->None:
+    """
+    Solves a linear programming problem using the Simplex Method and prints each tableu step in terminal.
+    Args:
+        c: The coefficients of the objective function.
+        A: The coefficients of the constraints.
+        b: The right-hand side of the constraints.
+    Returns:
+        None
+    """
     # Adding slack variables
     c_B = np.append(c, np.zeros(len(A)))
     A_s = np.column_stack((A, np.eye(len(A))))
@@ -35,6 +43,8 @@ def simplex_method_optimal(c, A, b):
         else:
             print(f"\n\nIteration {iters}:")
             pivot_column = np.where(c_z == np.max(c_z))[0][0]
+
+            # Κριτήριο ελαχίστου λόγου
             ratios = []
             for i in range(len(b)):
                 try:
@@ -49,10 +59,13 @@ def simplex_method_optimal(c, A, b):
                     ratios.append(ratio)
 
             min_ratio = min(ratios)
+            if min_ratio == 0:
+                ratios.remove(0)
+                min_ratio = min(ratios)
             pivot_row = ratios.index(min_ratio)
-            
+
+            # New basic variables
             basic_variables[pivot_row] = pivot_column
-            
 
             # Gaussian elimination
             pivot_element = A_s[pivot_row][pivot_column]
@@ -68,8 +81,6 @@ def simplex_method_optimal(c, A, b):
                     A_s[i] = A_s[i] - ( el  * A_s[pivot_row] )
 
                     b[i] = b[i] - (  el  * b[pivot_row] )
-                    
-                    
 
             temp1 = [ c_B[basic_variables[i]] for i in range(len(basic_variables))]
             for j in range(len(z)):
@@ -84,15 +95,11 @@ def simplex_method_optimal(c, A, b):
         iters += 1
     
     present_optimal_solution(z_value, c_B, b, basic_variables)
-
-                                               
-
+σ
 if __name__ == "__main__":
 
 
     # All arrays must be numpy arrays with dtype=float
-
-
     c = np.array([5., 4., -1., 3.])
     a1 = np.array([3., 2., -3., 1.])
     a2 = np.array([3., 3., 1., 3.])

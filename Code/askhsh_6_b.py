@@ -37,7 +37,12 @@ def simplex_method_different_paths(c, A, b, path):
             pos_c_z = np.where(c_z > 0)[0]
             print(f"pos_c_z: {pos_c_z}")
             if iters == 1:
-                pivot_column = pos_c_z[path % len(pos_c_z)]
+                pivot_column = np.where(c_z == np.max(c_z))[0][0]
+                pivot_column = pos_c_z[1]
+                print(f"pivot_column: {pivot_column}")
+            elif iters == 2:
+                pivot_column = np.where(c_z == np.max(c_z))[0][0]
+                # pivot_column = pos_c_z[1]
                 print(f"pivot_column: {pivot_column}")
             else:
                 pivot_column = np.where(c_z == np.max(c_z))[0][0]
@@ -56,8 +61,11 @@ def simplex_method_different_paths(c, A, b, path):
                     ratio = np.inf
                     ratios.append(ratio)
 
-            # print(f"ratios: {ratios}")
+            print(f"ratios: {ratios}")
             min_ratio = min(ratios)
+            if min_ratio == 0:
+                ratios.remove(0)
+                min_ratio = min(ratios)
             pivot_row = ratios.index(min_ratio)
             
             basic_variables[pivot_row] = pivot_column
@@ -89,8 +97,6 @@ def simplex_method_different_paths(c, A, b, path):
             present_tableau(temp1, A_s, b, z, c_z, z_value, basic_variables, c_B)
 
         iters += 1
-        if iters == 4:
-            break
     present_optimal_solution(z_value, c_B, b, basic_variables)
 
 

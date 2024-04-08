@@ -37,30 +37,152 @@ def find_min_or_max(fz, intersections:np.array, type:str)->tuple:
         print(f"Κορυφές:\n {intersections}")
         return minima, intersections[index]
 
-# Combinations
-def nCr_combs(arr, r):
+def nCr_combs(arr:np.array, r:int)->list:
+    """
+    Returns all possible combinations of r elements from an array.
+    Args:
+        arr: The array to be used.
+        r: The number of elements in each combination.
+    Returns:
+        A list containing all possible combinations of r elements from the array.
+    """
     return list(combinations(arr, r))
 
-def all_non_positive(arr):
+def all_non_positive(arr:np.array)->bool:
+    """
+    Checks if all elements of an array are non-positive.
+    Args:
+        arr: The array to be checked.
+    Returns:
+        True if all elements are non-positive, False otherwise.
+    """
     return np.all(arr <= 0.)
 
-def contains_positive(arr):
+def contains_positive(arr:np.array)->bool:
+    """
+    Checks if an array contains positive elements.
+    Args:
+        arr: The array to be checked.
+    Returns:
+        True if the array contains positive elements, False otherwise.
+    """
     return np.any(arr > 0)
 
-def contains_negative(arr):
+def contains_negative(arr:np.array)->bool:
+    """
+    Checks if an array contains negative elements.
+    Args:
+        arr: The array to be checked.
+    Returns:
+        True if the array contains negative elements, False otherwise.
+    """
     return np.any(arr < 0)
 
-def contains_zero(arr):
+def contains_zero(arr:np.array)->bool:
+    """
+    Checks if an array contains zero elements.
+    Args:
+        arr: The array to be checked.
+    Returns:
+        True if the array contains zero elements, False otherwise.
+    """
     return np.any(arr == 0)
 
-def nice_print_5a(arr):    
+# Prettier printing
+def nice_print_vertices(arr:list)->None:    
+    """
+    Prints the vertices of a polytope in a nice format.
+    Args:
+        arr: The vertices of the polytope.
+    Returns:
+        None
+
+    """
     print("hyperplanes  \t        x1\tx2\tx3\tx4")   
     for element in arr:
         print(f"{element[1]} \t\t{element[0][0]}\t{element[0][1]}\t{element[0][2]}\t{element[0][3]}")
 
-def nice_print_5b(arr):
+def nice_print_solutions(arr:list)->None:
+    """
+    Prints the solutions of a system of equations in a nice format.
+    Args:
+        arr: The solutions of the system of equations.
+    Returns:
+        None
+
+    """
     for i in range(len(arr)):
         print(f"{arr[i][1]}\t\t     [{np.round(arr[i][0], 2)[0]}\t{np.round(arr[i][0], 2)[1]}\t{np.round(arr[i][0], 2)[2]}]")   
+
+def nice_print_a(vertices:list, feasible_vertices:list, degenerate_vertices:list, vert_only:np.array)->None:
+    """
+    Prints the vertices of a polytope, the feasible vertices and the degenerate vertices in a nice format.
+    Args:
+        vertices: The vertices of the polytope.
+        feasible_vertices: The vertices that satisfy the constraints.
+        degenerate_vertices: The degenerate vertices.
+        vert_only: The vertices of the polytope without the hyperplanes.
+    Returns:
+        None
+
+    """
+    # Printing the solutions and the hyperplanes they belong to
+    print("-------------------------------------------")
+    print(f"Number of vertices of polytope: {len(vertices)}")
+    nice_print_vertices(vertices)
+
+    # Printing the solutions that satisfy the constraints and the hyperplanes they belong to
+    print("-------------------------------------------")
+    print(f"Number of vertices in feasible region: {len(feasible_vertices)}")
+    nice_print_vertices(feasible_vertices)
+
+    # Printing the degenerate vertices and the hyperplanes they belong to
+    print("-------------------------------------------")
+    print(f"Number of degenerate vertices: {len(degenerate_vertices)}")
+    print("hyperplanes  \t        x1\tx2\tx3\tx4")
+    for i, vertex in enumerate(degenerate_vertices):
+        indices = np.where(np.all(vert_only == vertex, axis=1))[0]
+        print(f"{feasible_vertices[indices[i]][1]} \t\t{degenerate_vertices[i][0]}\t{degenerate_vertices[i][1]}\t{degenerate_vertices[i][2]}\t{degenerate_vertices[i][3]}")
+
+def nice_print_b(general_solutions:list, feasible_solutions:list, degenerate_solutions:list, z:list, maxima:float)->None:
+    """
+    Prints the general solutions, the feasible solutions, the degenerate solutions and the value of the objective function in a nice format.
+    Args:
+        general_solutions: The general solutions.
+        feasible_solutions: The feasible solutions.
+        degenerate_solutions: The degenerate solutions.
+        z: The value of the objective function for every feasible solution.
+        maxima: The optimal solution.
+    Returns:
+        None
+
+    """
+    # Printing the general solutions and their according basic variables
+    print("------------------------------------------")
+    print(f"Number of general solutions: {len(general_solutions)}")
+    print(f"basic variables\t\t     general solution")
+    nice_print_solutions(general_solutions)
+
+    # Printing the feasible solutions and their according basic variables  
+    print("------------------------------------------")
+    print(f"Number of feasible solutions: {len(feasible_solutions)}")
+    print(f"basic variables\t\t     feasible solution")
+    nice_print_solutions(feasible_solutions)
+
+    # Printing the degenerate solutions and their according basic variables 
+    print("------------------------------------------")
+    print(f"Number of degenerate solutions: {len(degenerate_solutions)}")
+    print(f"basic variables\t\t     degenerate solution")
+    nice_print_solutions(degenerate_solutions)
+
+    # Printing the value of the objective function for every feasible solution and their according basic variables
+    print("------------------------------------------")
+    print(f"basic variables\t\t     value of the objective function")
+    for i in z:
+        print(f"{i[1]}\t\t     {i[0]:.2f}")
+        
+    print("------------------------------------------")
+    print(f"Optimal solution: {maxima:.2f}")
 
 def present_tableau(temp1, A_s, b, z, c_z, z_value, basic_variables, c_B):
     print("\n")
