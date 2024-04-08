@@ -58,11 +58,16 @@ def simplex_method_optimal(c:np.array, A:np.array, b:np.array)->None:
                     ratio = np.inf
                     ratios.append(ratio)
 
-            min_ratio = min(ratios)
-            if min_ratio == 0:
-                ratios.remove(0)
+            print(f"ratios: {ratios}")
+            if np.inf in ratios and 0 in ratios:
+                print(f"Non-feasible solution")
+                # break
+            elif 0 in ratios and np.inf not in ratios:
+                print(f"Degenerate solution")
+                # break
+            else:
                 min_ratio = min(ratios)
-            pivot_row = ratios.index(min_ratio)
+                pivot_row = ratios.index(min_ratio)
 
             # New basic variables
             basic_variables[pivot_row] = pivot_column
@@ -95,9 +100,9 @@ def simplex_method_optimal(c:np.array, A:np.array, b:np.array)->None:
         iters += 1
     
     present_optimal_solution(z_value, c_B, b, basic_variables)
-σ
-if __name__ == "__main__":
 
+if __name__ == "__main__":
+   
 
     # All arrays must be numpy arrays with dtype=float
     c = np.array([5., 4., -1., 3.])
