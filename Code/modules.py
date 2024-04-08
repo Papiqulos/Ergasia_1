@@ -60,7 +60,44 @@ def nice_print_5a(arr):
 
 def nice_print_5b(arr):
     for i in range(len(arr)):
-        print(f"{arr[i][1]}\t\t     [{np.round(arr[i][0], 2)[0]}\t{np.round(arr[i][0], 2)[1]}\t{np.round(arr[i][0], 2)[2]}]")
-    
+        print(f"{arr[i][1]}\t\t     [{np.round(arr[i][0], 2)[0]}\t{np.round(arr[i][0], 2)[1]}\t{np.round(arr[i][0], 2)[2]}]")   
 
+def present_tableau(temp1, A_s, b, z, c_z, z_value, basic_variables, c_B):
+    print("\n")
+    print("\t\t|", end="")
+    for i in range(len(z)):
+        print(f"\tx{i+1}", end="\t")
+    print("|")
     
+    print("Basis\tc_b\t|", end="")
+    for j in range(len(c_B)):
+        print(f"\t{np.round(c_B[j], 2)}", end="\t")
+    print("|\tb")
+    print(20*len(z)*"-")
+
+    for i in range(len(basic_variables)):
+        print(f"x{basic_variables[i]+1}\t{temp1[i]}\t|", end="")
+        for j in range(len(z)):
+            print(f"\t{np.round(A_s[i][j], 2)}", end="\t")
+        print(f"|\t{np.round(b[i], 2)}")  
+    print(20*len(z)*"-")
+
+    print("z\t\t|", end="")
+    for j in range(len(z)):
+        print(f"\t{np.round(z[j], 2)}", end="\t")
+    print(f"|\t{np.round(z_value, 2)}")
+    print("c-z\t\t|", end="")
+    for j in range(len(c_z)):
+        print(f"\t{np.round(c_z[j], 2)}", end="\t")
+    print(f"|\t")
+
+def present_optimal_solution(z_value, c_B, b, basic_variables):
+    print(f"\nOptimal solution: {z_value}", end="")
+    result_dict = {}
+    for i in range(len(c_B)):
+        result_dict[f"x{i+1}"] = 0
+    for i in range(len(basic_variables)):
+        result_dict[f"x{basic_variables[i]+1}"] = b[i]      
+    result_dict = dict(sorted(result_dict.items()))
+    for key, value in result_dict.items():
+        print(f"\nx{key[1:]} = {np.round(value, 2)}", end="")  
