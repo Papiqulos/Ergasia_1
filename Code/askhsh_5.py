@@ -187,14 +187,14 @@ if __name__ == "__main__":
     # feasible solutions that correspond to the feasible vertices
     print("-------------------------------------------")
     print("\tFeasible solutions\t\tHyperplanes of corresponding vertices:")
-    for i in range(len(feasible_solutions)):
+    for i in range(len(general_solutions)):
         y = np.zeros(7)
-        b = feasible_solutions[i][1]
-        s = feasible_solutions[i][0]
+        b = general_solutions[i][1]
+        s = general_solutions[i][0]
         y[list(b)] = s
-        for j in range(len(feasible_vertices)):
-            if np.all(y[:4] == feasible_vertices[j][0]):
-                print(f"{y[:4][0]}\t{y[:4][1]}\t{y[:4][2]}\t{y[:4][3]}\t\t{feasible_vertices[j][1]}")
+        for j in range(len(vertices)):
+            if np.all(y[:4] == vertices[j][0]):
+                print(f"{y[:4][0]}\t{y[:4][1]}\t{y[:4][2]}\t{y[:4][3]}\t\t{vertices[j][1]}")
     
     
         
