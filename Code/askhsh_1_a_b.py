@@ -25,7 +25,6 @@ def fz1(x1, x2):
 def fz2(x1, x2):
     return 11 * x1 - x2
 
-
 def main():
     # Define the constraints
     d = np.linspace(0, 35, 300)
