@@ -127,9 +127,9 @@ def nice_print_a(vertices:list, feasible_vertices:list, degenerate_vertices:list
 
     """
     # Printing the solutions and the hyperplanes they belong to
-    # print("-------------------------------------------")
-    # print(f"Number of vertices of polytope: {len(vertices)}")
-    # nice_print_vertices(vertices)
+    print("-------------------------------------------")
+    print(f"Number of vertices of polytope: {len(vertices)}")
+    nice_print_vertices(vertices)
 
     # Printing the solutions that satisfy the constraints and the hyperplanes they belong to
     print("-------------------------------------------")
@@ -137,12 +137,12 @@ def nice_print_a(vertices:list, feasible_vertices:list, degenerate_vertices:list
     nice_print_vertices(feasible_vertices)
 
     # Printing the degenerate vertices and the hyperplanes they belong to
-    # print("-------------------------------------------")
-    # print(f"Number of degenerate vertices: {len(degenerate_vertices)}")
-    # print("hyperplanes  \t        x1\tx2\tx3\tx4")
-    # for i, vertex in enumerate(degenerate_vertices):
-    #     indices = np.where(np.all(vert_only == vertex, axis=1))[0]
-    #     print(f"{feasible_vertices[indices[i]][1]} \t\t{degenerate_vertices[i][0]}\t{degenerate_vertices[i][1]}\t{degenerate_vertices[i][2]}\t{degenerate_vertices[i][3]}")
+    print("-------------------------------------------")
+    print(f"Number of degenerate vertices: {len(degenerate_vertices)}")
+    print("hyperplanes  \t        x1\tx2\tx3\tx4")
+    for i, vertex in enumerate(degenerate_vertices):
+        indices = np.where(np.all(vert_only == vertex, axis=1))[0]
+        print(f"{feasible_vertices[indices[i]][1]} \t\t{degenerate_vertices[i][0]}\t{degenerate_vertices[i][1]}\t{degenerate_vertices[i][2]}\t{degenerate_vertices[i][3]}")
 
 def nice_print_b(general_solutions:list, feasible_solutions:list, degenerate_solutions:list, z:list, maxima:float)->None:
     """
@@ -158,10 +158,10 @@ def nice_print_b(general_solutions:list, feasible_solutions:list, degenerate_sol
 
     """
     # Printing the general solutions and their according basic variables
-    # print("------------------------------------------")
-    # print(f"Number of general solutions: {len(general_solutions)}")
-    # print(f"basic variables\t\t     general solution")
-    # nice_print_solutions(general_solutions)
+    print("------------------------------------------")
+    print(f"Number of general solutions: {len(general_solutions)}")
+    print(f"basic variables\t\t     general solution")
+    nice_print_solutions(general_solutions)
 
     # Printing the feasible solutions and their according basic variables  
     print("------------------------------------------")
@@ -170,19 +170,19 @@ def nice_print_b(general_solutions:list, feasible_solutions:list, degenerate_sol
     nice_print_solutions(feasible_solutions)
 
     # Printing the degenerate solutions and their according basic variables 
-    # print("------------------------------------------")
-    # print(f"Number of degenerate solutions: {len(degenerate_solutions)}")
-    # print(f"basic variables\t\t     degenerate solution")
-    # nice_print_solutions(degenerate_solutions)
+    print("------------------------------------------")
+    print(f"Number of degenerate solutions: {len(degenerate_solutions)}")
+    print(f"basic variables\t\t     degenerate solution")
+    nice_print_solutions(degenerate_solutions)
 
     # Printing the value of the objective function for every feasible solution and their according basic variables
-    # print("------------------------------------------")
-    # print(f"basic variables\t\t     value of the objective function")
-    # for i in z:
-    #     print(f"{i[1]}\t\t     {i[0]:.2f}")
+    print("------------------------------------------")
+    print(f"basic variables\t\t     value of the objective function")
+    for i in z:
+        print(f"{i[1]}\t\t     {i[0]:.2f}")
         
-    # print("------------------------------------------")
-    # print(f"Optimal solution: {maxima:.2f}")
+    print("------------------------------------------")
+    print(f"Optimal solution: {maxima:.2f}")
 
 def present_tableau(temp1, A_s, b, z, c_z, z_value, basic_variables, c_B):
     print("\n")

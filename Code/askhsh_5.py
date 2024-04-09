@@ -184,21 +184,19 @@ if __name__ == "__main__":
     general_solutions, feasible_solutions, degenerate_solutions, z, maxima = erwthma_b()
     nice_print_b(general_solutions, feasible_solutions, degenerate_solutions, z, maxima)
 
-    # There was an attempt...
     # feasible solutions that correspond to the feasible vertices
+    print("-------------------------------------------")
+    print("\tFeasible solutions\t\tHyperplanes of corresponding vertices:")
+    for i in range(len(feasible_solutions)):
+        y = np.zeros(7)
+        b = feasible_solutions[i][1]
+        s = feasible_solutions[i][0]
+        y[list(b)] = s
+        for j in range(len(feasible_vertices)):
+            if np.all(y[:4] == feasible_vertices[j][0]):
+                print(f"{y[:4][0]}\t{y[:4][1]}\t{y[:4][2]}\t{y[:4][3]}\t\t{feasible_vertices[j][1]}")
     
-    # for solution, basic_vars in feasible_solutions:
-    #     for vertice, hyperplane in feasible_vertices:
-    #         var_arr = np.array([*basic_vars])
-    #         if  np.all(var_arr <= 3):
-    #             # print(f"basic variables: {basic_vars}")
-    #             if solution[]
-        
-    # print("-------------------------------------------------")
-    # for solution, basic_vars in feasible_solutions:
-    #     var_arr = np.array([*basic_vars])
-    #     if  np.any(var_arr > 3):
-    #         print(f"basic variables: {basic_vars}")
+    
         
                 
 
