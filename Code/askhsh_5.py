@@ -184,52 +184,24 @@ if __name__ == "__main__":
     general_solutions, feasible_solutions, degenerate_solutions, z, maxima = erwthma_b()
     nice_print_b(general_solutions, feasible_solutions, degenerate_solutions, z, maxima)
 
-
-
     # There was an attempt...
     # feasible solutions that correspond to the feasible vertices
-    # for i in range(len(feasible_solutions)):
-    #     b1 = feasible_solutions[i][1][0]
-    #     b2 = feasible_solutions[i][1][1]
-    #     b3 = feasible_solutions[i][1][2]
-    #     # print((b1, b2, b3))
-    #     for j in range(len(feasible_solutions)):
-    #         # print( (feasible_solutions[i][0], feasible_vertices[j][0]) )
-    #         if b2 == 4 and b3 != 5 and b3 != 6:
-    #             if (np.round(feasible_solutions[i][0][0]), np.round(feasible_solutions[i][0][2])) == \
-    #             (np.round(feasible_vertices[j][0][b1]), np.round(feasible_vertices[j][0][b3])):
-    #                 print(f"[{np.round(feasible_solutions[i][0], 2)[0]}\t{np.round(feasible_solutions[i][0], 2)[1]}\t{np.round(feasible_solutions[i][0], 2)[2]}] \t\t{feasible_vertices[j][0][0]}\t{feasible_vertices[j][0][1]}\t{feasible_vertices[j][0][2]}\t{feasible_vertices[j][0][3]}")
-                    
-    #         elif b3 == 5 and b2 != 4 and b2 != 6:
-    #             if (np.round(feasible_solutions[i][0][0]), np.round(feasible_solutions[i][0][1])) == \
-    #             (np.round(feasible_vertices[j][0][b1]), np.round(feasible_vertices[j][0][b2])):
-    #                 print(f"[{np.round(feasible_solutions[i][0], 2)[0]}\t{np.round(feasible_solutions[i][0], 2)[1]}\t{np.round(feasible_solutions[i][0], 2)[2]}] \t\t{feasible_vertices[j][0][0]}\t{feasible_vertices[j][0][1]}\t{feasible_vertices[j][0][2]}\t{feasible_vertices[j][0][3]}")
-                    
-    #         elif b3 == 4 and b2 != 5 and b2 != 6:
-    #             if (np.round(feasible_solutions[i][0][0]), np.round(feasible_solutions[i][0][1])) == \
-    #             (np.round(feasible_vertices[j][0][b1]), np.round(feasible_vertices[j][0][b2])):
-    #                 print(f"[{np.round(feasible_solutions[i][0], 2)[0]}\t{np.round(feasible_solutions[i][0], 2)[1]}\t{np.round(feasible_solutions[i][0], 2)[2]}] \t\t{feasible_vertices[j][0][0]}\t{feasible_vertices[j][0][1]}\t{feasible_vertices[j][0][2]}\t{feasible_vertices[j][0][3]}")
-                    
-    #         elif b3 == 6 and b2 != 4 and b2 != 5:
-    #             if (np.round(feasible_solutions[i][0][0]), np.round(feasible_solutions[i][0][1])) == \
-    #             (np.round(feasible_vertices[j][0][b1]), np.round(feasible_vertices[j][0][b2])):
-    #                 print(f"[{np.round(feasible_solutions[i][0], 2)[0]}\t{np.round(feasible_solutions[i][0], 2)[1]}\t{np.round(feasible_solutions[i][0], 2)[2]}] \t\t{feasible_vertices[j][0][0]}\t{feasible_vertices[j][0][1]}\t{feasible_vertices[j][0][2]}\t{feasible_vertices[j][0][3]}")
-                    
-    #         elif b2 == 4 and b3 == 5:
-    #             if (np.round(feasible_solutions[i][0][0])) == \
-    #             (np.round(feasible_vertices[j][0][b1])):
-    #                 print(f"[{np.round(feasible_solutions[i][0], 2)[0]}\t{np.round(feasible_solutions[i][0], 2)[1]}\t{np.round(feasible_solutions[i][0], 2)[2]}] \t\t{feasible_vertices[j][0][0]}\t{feasible_vertices[j][0][1]}\t{feasible_vertices[j][0][2]}\t{feasible_vertices[j][0][3]}")
-                    
-    #         elif b2 == 4 and b3 == 6:
-    #             if (np.round(feasible_solutions[i][0][0])) == \
-    #             (np.round(feasible_vertices[j][0][b1])):
-    #                 print(f"[{np.round(feasible_solutions[i][0], 2)[0]}\t{np.round(feasible_solutions[i][0], 2)[1]}\t{np.round(feasible_solutions[i][0], 2)[2]}] \t\t{feasible_vertices[j][0][0]}\t{feasible_vertices[j][0][1]}\t{feasible_vertices[j][0][2]}\t{feasible_vertices[j][0][3]}")
-                    
-    #         else:
-    #             # print(b1, b2, b3)
-    #             if (np.round(feasible_solutions[i][0][0]), np.round(feasible_solutions[i][0][1]), np.round(feasible_solutions[i][0][2])) == \
-    #             (np.round(feasible_vertices[j][0][b1]), np.round(feasible_vertices[j][0][b2]), np.round(feasible_vertices[j][0][b3])):
-    #                 print(f"[{np.round(feasible_solutions[i][0], 2)[0]}\t{np.round(feasible_solutions[i][0], 2)[1]}\t{np.round(feasible_solutions[i][0], 2)[2]}] \t\t{feasible_vertices[j][0][0]}\t{feasible_vertices[j][0][1]}\t{feasible_vertices[j][0][2]}\t{feasible_vertices[j][0][3]}")
+    
+    # for solution, basic_vars in feasible_solutions:
+    #     for vertice, hyperplane in feasible_vertices:
+    #         var_arr = np.array([*basic_vars])
+    #         if  np.all(var_arr <= 3):
+    #             # print(f"basic variables: {basic_vars}")
+    #             if solution[]
+        
+    # print("-------------------------------------------------")
+    # for solution, basic_vars in feasible_solutions:
+    #     var_arr = np.array([*basic_vars])
+    #     if  np.any(var_arr > 3):
+    #         print(f"basic variables: {basic_vars}")
+        
+                
+
                     
 
                 
